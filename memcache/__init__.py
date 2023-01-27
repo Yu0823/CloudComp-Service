@@ -9,8 +9,6 @@ global memcache
 webapp = Flask(__name__)
 memcache = {}
 
-from memcache import main
-
 class DBconfig(object):
     config_str = f'mysql://{DB_USER}:{DB_PSWD}@{IP_EC2}:{DB_PORT}/{DB}'
     print(config_str)
@@ -43,4 +41,6 @@ db = SQLAlchemy(webapp)
 
 with webapp.app_context():
     db.create_all()
+
+from memcache import main
 
