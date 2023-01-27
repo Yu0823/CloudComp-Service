@@ -40,3 +40,39 @@ def put():
 
     return response
 
+@webapp.route('/clear')
+def clear():
+    memcache.clear()
+
+    response = webapp.response_class(
+        response=json.dumps("OK"),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
+
+@webapp.route('/invalid', methods=['POST'])
+def invalidate_key():
+    key = request.form.get('key')
+    memcache.pop(key)
+
+    response = webapp.response_class(
+        response=json.dumps("OK"),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
+
+@webapp.route('/refresh')
+def refresh_configuration():
+    #TODO: Load from database
+
+    response = webapp.response_class(
+        response=json.dumps("OK"),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
