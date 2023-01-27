@@ -1,7 +1,6 @@
 from flask import render_template, url_for, request
-from memcache.app import webapp, memcache
+from memcache import webapp, memcache
 from flask import json
-
 
 @webapp.route('/')
 def main():
