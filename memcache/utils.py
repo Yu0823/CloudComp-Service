@@ -2,8 +2,8 @@ from memcache import webapp
 import json
 
 # basic response
-def basic_res(status=True):
-    if status:
+def basic_res(ok=True):
+    if ok:
         response = webapp.response_class(
             response=json.dumps("OK"),
             status=200,

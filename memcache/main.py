@@ -1,6 +1,8 @@
 from flask import render_template, url_for, request
 from memcache import webapp, memcache
 from memcache.utils import basic_res, build_res
+from flask_sqlalchemy import SQLAlchemy
+import pymysql
 
 @webapp.route('/')
 def main():
@@ -44,3 +46,8 @@ def refresh_configuration():
     #TODO: Load from database
 
     return basic_res()
+
+@webapp.route('/show_keys')
+def show_keys():
+    pass
+
