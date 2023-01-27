@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request
 from memcache import webapp, memcache
-from flask import json
+from memcache.utils import basic_res, build_res
 
 @webapp.route('/')
 def main():
@@ -12,17 +12,9 @@ def get():
 
     if key in memcache:
         value = memcache[key]
-        response = webapp.response_class(
-            response=json.dumps(value),
-            status=200,
-            mimetype='application/json'
-        )
+        response = build_res(200, value)
     else:
-        response = webapp.response_class(
-            response=json.dumps("Unknown key"),
-            status=400,
-            mimetype='application/json'
-        )
+        response = build_res(400, "Unknown key")
 
     return response
 
@@ -32,47 +24,23 @@ def put():
     value = request.form.get('value')
     memcache[key] = value
 
-    response = webapp.response_class(
-        response=json.dumps("OK"),
-        status=200,
-        mimetype='application/json'
-    )
-
-    return response
+    return basic_res()
 
 @webapp.route('/clear')
 def clear():
     memcache.clear()
 
-    response = webapp.response_class(
-        response=json.dumps("OK"),
-        status=200,
-        mimetype='application/json'
-    )
-
-    return response
+    return basic_res()
 
 @webapp.route('/invalid', methods=['POST'])
 def invalidate_key():
     key = request.form.get('key')
     memcache.pop(key)
 
-    response = webapp.response_class(
-        response=json.dumps("OK"),
-        status=200,
-        mimetype='application/json'
-    )
-
-    return response
+    return basic_res()
 
 @webapp.route('/refresh')
 def refresh_configuration():
     #TODO: Load from database
 
-    response = webapp.response_class(
-        response=json.dumps("OK"),
-        status=200,
-        mimetype='application/json'
-    )
-
-    return response
+    return basic_res()
