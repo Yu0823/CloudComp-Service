@@ -1,14 +1,19 @@
 from flask import Flask
-from config import DB, DB_USER, DB_PSWD, DB_PORT, IP_EC2
-from flask_sqlalchemy import SQLAlchemy
-import pymysql
-pymysql.install_as_MySQLdb()
-UPLOAD_FOLDER = '.'
+
+
+UPLOAD_FOLDER = './images'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = "super secret key"
 
+"""
+
+from config import DB, DB_USER, DB_PSWD, DB_PORT, IP_EC2
+from flask_sqlalchemy import SQLAlchemy
+import pymysql
+
+pymysql.install_as_MySQLdb()
 class DBconfig(object):
     config_str = f'mysql://{DB_USER}:{DB_PSWD}@{IP_EC2}:{DB_PORT}/{DB}'
     print(config_str)
@@ -42,5 +47,8 @@ db = SQLAlchemy(app)
 with app.app_context():
     db.create_all()
 
-from web_front_end import main
+
+
+"""
+from web_front_end import main, find_a_image
 
